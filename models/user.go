@@ -70,14 +70,14 @@ func UpdateUser(id, password, name, telephone string) (code int, msg string) {
 }
 
 //获取用户信息
-func GetUser(id string) (User, bool) {
+func GetUser(id string) (u User, code int, msg string) {
 	o := orm.NewOrm()
-	u := User{Id: id}
+	u = User{Id: id}
 	err := o.Read(&u)
 	if err == nil {
-		return u, true
+		return u, 100, "获取用户信息成功"
 	}
-	return User{}, false
+	return u, 101, "获取用户信息失败"
 }
 func DeleteUser(id string) (code int, msg string) {
 	o := orm.NewOrm()

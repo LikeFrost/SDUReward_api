@@ -21,32 +21,28 @@ type SuggestionController struct {
 // @router / [post]
 func (s *SuggestionController) AddSuggestion() {
 	token, err := s.ParseToken()
-	claims, ok := token.Claims.(jwt.MapClaims)
-	uid := claims["id"].(string)
-	var data map[string]interface{}
-	json.Unmarshal(s.Ctx.Input.RequestBody, &data)
-	suggestion := data["suggestion"].(string)
-	email := data["email"].(string)
-	if !ok {
+	if err != "" {
 		s.Data["json"] = map[string]interface{}{
 			"code": 102,
-			"msg":  "token失效，请重新登录",
-		}
-	} else if err != "" {
-		s.Data["json"] = map[string]interface{}{
-			"code": 102,
-			"msg":  "token失效，请重新登录",
+			"msg":  "token失效,请重新登录",
 		}
 	} else {
-		if models.AddSuggestion(uid, suggestion, email) {
+		claims, ok := token.Claims.(jwt.MapClaims)
+		uid := claims["id"].(string)
+		var data map[string]interface{}
+		json.Unmarshal(s.Ctx.Input.RequestBody, &data)
+		suggestion := data["suggestion"].(string)
+		email := data["email"].(string)
+		if !ok {
 			s.Data["json"] = map[string]interface{}{
-				"code": 100,
-				"msg":  "反馈建议成功",
+				"code": 102,
+				"msg":  "token失效,请重新登录",
 			}
 		} else {
+			code, msg := models.AddSuggestion(uid, suggestion, email)
 			s.Data["json"] = map[string]interface{}{
-				"code": 101,
-				"msg":  "反馈建议失败",
+				"code": code,
+				"msg":  msg,
 			}
 		}
 	}

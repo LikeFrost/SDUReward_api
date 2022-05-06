@@ -8,7 +8,7 @@ type Suggestion struct {
 	Email   string `orm:"size(30)"`
 }
 
-func AddSuggestion(uid, suggestion, email string) bool {
+func AddSuggestion(uid, suggestion, email string) (code int, msg string) {
 	o := orm.NewOrm()
 	s := Suggestion{
 		Content: suggestion,
@@ -17,7 +17,7 @@ func AddSuggestion(uid, suggestion, email string) bool {
 	}
 	_, err := o.Insert(&s)
 	if err == nil {
-		return true
+		return 100, "添加意见反馈信息成功"
 	}
-	return false
+	return 101, "添加意见反馈信息失败"
 }

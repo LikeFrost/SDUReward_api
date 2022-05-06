@@ -199,24 +199,17 @@ func (u *UserController) Get() {
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
 	id := claims["id"].(string)
-	user, flag := models.GetUser(id)
+	user, code, msg := models.GetUser(id)
 	if !ok {
 		u.Data["json"] = map[string]interface{}{
 			"code": 102,
 			"msg":  "token失效,请重新登录",
 		}
 	} else {
-		if flag {
-			u.Data["json"] = map[string]interface{}{
-				"code": 100,
-				"msg":  "获取信息成功",
-				"user": user,
-			}
-		} else {
-			u.Data["json"] = map[string]interface{}{
-				"code": 101,
-				"msg":  "获取信息失败",
-			}
+		u.Data["json"] = map[string]interface{}{
+			"code": code,
+			"msg":  msg,
+			"user": user,
 		}
 	}
 	u.ServeJSON()
