@@ -1,0 +1,355 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "beego Test API",
+        "description": "beego has a very cool tools to autogenerate documents for your API",
+        "version": "1.0.0",
+        "termsOfService": "http://beego.me/",
+        "contact": {
+            "email": "astaxie@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/reward/": {
+            "get": {
+                "tags": [
+                    "reward"
+                ],
+                "description": "获取所有奖励记录",
+                "operationId": "RewardController.GetAllReward",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "获取成功"
+                    },
+                    "101": {
+                        "description": "获取失败"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "reward"
+                ],
+                "description": "添加奖励记录",
+                "operationId": "RewardController.AddReward",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestBody",
+                        "description": "tagId \u0026 type \u0026 name \u0026 grade \u0026 prize \u0026 score \u0026 time \u0026 img",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/{}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "添加成功"
+                    },
+                    "101": {
+                        "description": "添加失败"
+                    }
+                }
+            }
+        },
+        "/reward/byTag/{tag}": {
+            "get": {
+                "tags": [
+                    "reward"
+                ],
+                "description": "获取分类奖励记录",
+                "operationId": "RewardController.GetRewardByTag",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "tag",
+                        "description": "tag",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "获取成功"
+                    },
+                    "101": {
+                        "description": "获取失败"
+                    }
+                }
+            }
+        },
+        "/reward/{rewardId}": {
+            "get": {
+                "tags": [
+                    "reward"
+                ],
+                "description": "获取奖励记录",
+                "operationId": "RewardController.GetReward",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "rewardId",
+                        "description": "rewardId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "获取成功"
+                    },
+                    "101": {
+                        "description": "获取失败"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "reward"
+                ],
+                "description": "更改奖励记录",
+                "operationId": "RewardController.UpdateReward",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "rewardId",
+                        "description": "rewardId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestBody",
+                        "description": "tag \u0026 type \u0026 name \u0026 grade \u0026 prize \u0026 score \u0026 time \u0026img",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/{}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "更改成功"
+                    },
+                    "101": {
+                        "description": "更改失败"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "reward"
+                ],
+                "description": "删除奖励记录",
+                "operationId": "RewardController.DeleteReward",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "rewardId",
+                        "description": "rewardId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "删除成功"
+                    },
+                    "101": {
+                        "description": "删除失败"
+                    }
+                }
+            }
+        },
+        "/suggestion/": {
+            "post": {
+                "tags": [
+                    "suggestion"
+                ],
+                "description": "添加建议",
+                "operationId": "SuggestionController.AddSuggestion",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestBody",
+                        "description": "email \u0026 suggestion",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/{}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "添加成功"
+                    },
+                    "101": {
+                        "description": "添加失败"
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "获取用户自身信息",
+                "operationId": "UserController.Get",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "获取信息成功"
+                    },
+                    "101": {
+                        "description": "获取信息失败"
+                    },
+                    "102": {
+                        "description": "token失效"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "更新用户信息",
+                "operationId": "UserController.UpdateUser",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestBody",
+                        "description": "password \u0026 name \u0026 telephone",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/{}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "更新成功"
+                    },
+                    "101": {
+                        "description": "更新失败"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "登录，若用户未登陆过且密码为初始 “student”，则创建新用户，反之登录系统",
+                "operationId": "UserController.Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "requestBody",
+                        "description": "id \u0026 password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/{}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "100": {
+                        "description": "登陆成功"
+                    },
+                    "101": {
+                        "description": "密码错误"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "{}": {
+            "title": "{}",
+            "type": "object"
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operations about Users\n"
+        }
+    ]
+}
