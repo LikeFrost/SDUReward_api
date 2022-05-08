@@ -47,7 +47,7 @@ func (r *RewardController) Add() {
 			time := r.GetString("time")
 			md5Data := md5.New()
 			md5Data.Write([]byte(uid + time + tag + name))
-			path := "img/" + hex.EncodeToString(md5Data.Sum(nil)) + ".jpg"
+			path := "image/" + hex.EncodeToString(md5Data.Sum(nil)) + ".jpg"
 			e := r.SaveToFile("img", path)
 			if e != nil {
 				r.Data["json"] = map[string]interface{}{

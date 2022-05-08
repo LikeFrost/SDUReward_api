@@ -1,8 +1,6 @@
 package models
 
 import (
-	"encoding/base64"
-	"io/ioutil"
 	"os"
 
 	"github.com/astaxie/beego/orm"
@@ -45,11 +43,7 @@ func GetReward(id int) (r Reward, code int, msg string) {
 	r = Reward{Id: id}
 	err := o.Read(&r)
 	if err == nil {
-		data, e := ioutil.ReadFile(r.Img)
-		if e == nil {
-			r.Img = base64.StdEncoding.EncodeToString(data)
-			return r, 100, "获取奖励成功"
-		}
+		return r, 100, "获取奖励成功"
 	}
 	return r, 101, "获取奖励失败"
 }
